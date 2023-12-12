@@ -1,7 +1,8 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/cupertino.dart';
 
 void main() {
   runApp(MyApp());
@@ -78,9 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         page = FavoritesPage();
         break;
-      case 2:
-        page = WorkerModelWindowPage();
-        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -96,27 +94,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
-        foregroundColor: Colors.blue,
-        elevation: 0,
-        title: Text('필드서비스',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold),),
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: (){
-            print("menu button is clicked");
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: (){
-              print("menu button clicked");
-            },
-          )
-        ],
-
-      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth < 450) {
@@ -135,10 +112,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       BottomNavigationBarItem(
                         icon: Icon(Icons.favorite),
                         label: 'Favorites',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.local_shipping_outlined),
-                        label: '배송워커 앱 모달창',
                       ),
                     ],
                     currentIndex: selectedIndex,
@@ -165,10 +138,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       NavigationRailDestination(
                         icon: Icon(Icons.favorite),
                         label: Text('Favorites'),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.local_shipping_outlined),
-                        label: Text('배송워커 앱 모달창'),
                       ),
                     ],
                     selectedIndex: selectedIndex,
@@ -391,90 +360,5 @@ class _HistoryListViewState extends State<HistoryListView> {
         },
       ),
     );
-  }
-}
-
-class WorkerModelWindowPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 229, 232, 236),
-      ),
-      home: Scaffold(
-        body: ListView(children: [
-          Rectangle4076(),
-        ]),
-      ),
-    );
-  }
-}
-
-class Rectangle4076 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-
-        children: [
-          Text(
-            '이 마당발 센터가 맞나요?',
-            style: TextStyle(
-              color: Color(0xFFB4B4B4),
-              fontSize: 16,
-              fontFamily: 'Noto Sans KR',
-              fontWeight: FontWeight.w400,
-              height: 0,
-              letterSpacing: -0.32,
-            ),
-          ),
-          SizedBox(
-            width: 233,
-            child: Text(
-              '목련, 목화점',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0xFF222222),
-                fontSize: 28,
-                fontFamily: 'Noto Sans KR',
-                fontWeight: FontWeight.w700,
-                height: 0,
-                letterSpacing: -0.56,
-              ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '아닙니다',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFFA6A6A6),
-                  fontSize: 16,
-                  fontFamily: 'Noto Sans KR',
-                  fontWeight: FontWeight.w700,
-                  height: 0,
-                  letterSpacing: -0.32,
-                ),
-              ),
-              Text(
-                '맞습니다',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFF565DFC),
-                  fontSize: 16,
-                  fontFamily: 'Noto Sans KR',
-                  fontWeight: FontWeight.w700,
-                  height: 0,
-                  letterSpacing: -0.32,
-                ),
-              ),
-            ],
-          )
-
-
-
-        ]);
   }
 }
