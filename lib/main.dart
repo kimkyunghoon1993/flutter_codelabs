@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
         page = FavoritesPage();
         break;
       case 2:
-        page = WorkerModelWindowPage();
+        page = DeliveryWorkerPage();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -403,18 +403,51 @@ class WorkerModelWindowPage extends StatelessWidget {
       ),
       home: Scaffold(
         body: ListView(children: [
-          Rectangle4076(),
         ]),
       ),
     );
   }
 }
 
+class DeliveryWorkerPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+    var pair = appState.current;
+
+    IconData icon;
+    if (appState.favorites.contains(pair)) {
+      icon = Icons.favorite;
+    } else {
+      icon = Icons.favorite_border;
+    }
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(height: 10),
+          SizedBox(height: 10),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(width: 10),
+            ],
+
+          ),
+          Spacer(flex: 2),
+        ],
+      ),
+    );
+  }
+}
+
+
 class Rectangle4076 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-
+    return Dialog(
+        child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(100),
@@ -475,6 +508,8 @@ class Rectangle4076 extends StatelessWidget {
             ],
           ),
 
-        ]);
+        ]
+        )
+    );
   }
 }
