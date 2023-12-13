@@ -97,25 +97,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
-        foregroundColor: Colors.blue,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.grey,
         elevation: 0,
-        title: Text('필드서비스',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold),),
+        title: Image.asset('assets/pild_logo.png',width: 50,height: 50), /*Text('필드서비스',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold),),*/
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: Icon(Icons.notifications),
           onPressed: (){
             print("menu button is clicked");
           },
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: (){
-              print("menu button clicked");
-            },
-          )
-        ],
-
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(Icons.notifications),
+        //     onPressed: (){
+        //       print("menu button clicked");
+        //     },
+        //   )
+        // ],
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -138,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       BottomNavigationBarItem(
                         icon: Icon(Icons.local_shipping_outlined),
-                        label: '배송워커 앱 모달창',
+                        label: '센터 모달',
                       ),
                     ],
                     currentIndex: selectedIndex,
@@ -168,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.local_shipping_outlined),
-                        label: Text('배송워커 앱 모달창'),
+                        label: Text('센터 모달'),
                       ),
                     ],
                     selectedIndex: selectedIndex,
@@ -417,6 +416,9 @@ class Rectangle4076 extends StatelessWidget {
     return Column(
 
         children: [
+          Padding(
+            padding: const EdgeInsets.all(100),
+          ),
           Text(
             '이 마당발 센터가 맞나요?',
             style: TextStyle(
@@ -471,9 +473,7 @@ class Rectangle4076 extends StatelessWidget {
                 ),
               ),
             ],
-          )
-
-
+          ),
 
         ]);
   }
