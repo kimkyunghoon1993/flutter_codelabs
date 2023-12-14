@@ -81,6 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 2:
         page = DeliveryWorkerPage();
         break;
+      case 3:
+        page = DeliveryListPage();
+        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -100,10 +103,11 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.grey,
         elevation: 0,
-        title: Image.asset('assets/pild_logo.png',width: 50,height: 50), /*Text('필드서비스',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold),),*/
+        title: Image.asset('assets/pild_logo.png', width: 125, height: 125),
+        /*Text('필드서비스',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold),),*/
         leading: IconButton(
           icon: Icon(Icons.notifications),
-          onPressed: (){
+          onPressed: () {
             print("menu button is clicked");
           },
         ),
@@ -126,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(child: mainArea),
                 SafeArea(
                   child: BottomNavigationBar(
+                    type: BottomNavigationBarType.fixed,
                     items: [
                       BottomNavigationBarItem(
                         icon: Icon(Icons.home),
@@ -139,6 +144,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         icon: Icon(Icons.local_shipping_outlined),
                         label: '센터 모달',
                       ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.list),
+                        label: '리스트',
+                      )
                     ],
                     currentIndex: selectedIndex,
                     onTap: (value) {
@@ -168,6 +177,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       NavigationRailDestination(
                         icon: Icon(Icons.local_shipping_outlined),
                         label: Text('센터 모달'),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.list),
+                        label: Text('리스트'),
                       ),
                     ],
                     selectedIndex: selectedIndex,
@@ -393,123 +406,254 @@ class _HistoryListViewState extends State<HistoryListView> {
   }
 }
 
-class WorkerModelWindowPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 229, 232, 236),
-      ),
-      home: Scaffold(
-        body: ListView(children: [
-        ]),
-      ),
-    );
-  }
-}
-
 class DeliveryWorkerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;
-
-    IconData icon;
-    if (appState.favorites.contains(pair)) {
-      icon = Icons.favorite;
-    } else {
-      icon = Icons.favorite_border;
-    }
-
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 10),
-          SizedBox(height: 10),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(width: 10),
-            ],
-
+          Padding(
+            padding: EdgeInsets.all(20),
           ),
-          Spacer(flex: 2),
+          Row(
+            children: [
+              ElevatedButton(
+                child: const Text('센터 model'),
+                onPressed: () {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: 200,
+                        color: Colors.white,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              const Text(
+                                '이 마당발 센터가 맞나요?',
+                                style: TextStyle(
+                                  color: Color(0xFFB4B4B4),
+                                  fontSize: 16,
+                                  fontFamily: 'Noto Sans KR',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                  letterSpacing: -0.32,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 233,
+                                child: Text(
+                                  '목련, 목화점',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF222222),
+                                    fontSize: 28,
+                                    fontFamily: 'Noto Sans KR',
+                                    fontWeight: FontWeight.w700,
+                                    height: 0,
+                                    letterSpacing: -0.56,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                    child: const Text(
+                                      '아닙니다',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color(0xFFA6A6A6),
+                                        fontSize: 16,
+                                        fontFamily: 'Noto Sans KR',
+                                        fontWeight: FontWeight.w700,
+                                        height: 0,
+                                        letterSpacing: -0.32,
+                                      ),
+                                    ),
+                                    onPressed: () => Navigator.pop(context),
+                                  ),
+                                  ElevatedButton(
+                                    child: const Text(
+                                      '맞습니다',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color(0xFF565DFC),
+                                        fontSize: 16,
+                                        fontFamily: 'Noto Sans KR',
+                                        fontWeight: FontWeight.w700,
+                                        height: 0,
+                                        letterSpacing: -0.32,
+                                      ),
+                                    ),
+                                    onPressed: () => Navigator.pop(context),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+              ElevatedButton(
+                child: const Text('팝업'),
+                onPressed: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text(
+                      '이 마당발 센터가 맞나요?',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFFB4B4B4),
+                        fontSize: 16,
+                        fontFamily: 'Noto Sans KR',
+                        fontWeight: FontWeight.w400,
+                        height: 0,
+                        letterSpacing: -0.32,
+                      ),
+                    ),
+                    content: const Text(
+                      '목련, 목화점',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFF222222),
+                        fontSize: 28,
+                        fontFamily: 'Noto Sans KR',
+                        fontWeight: FontWeight.w700,
+                        height: 0,
+                        letterSpacing: -0.56,
+                      ),
+                    ),
+                    actions: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Cancel'),
+                            child: const Text(
+                              '아닙니다',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFFA6A6A6),
+                                fontSize: 16,
+                                fontFamily: 'Noto Sans KR',
+                                fontWeight: FontWeight.w700,
+                                height: 0,
+                                letterSpacing: -0.32,
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text(
+                              '맞습니다',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFF565DFC),
+                                fontSize: 16,
+                                fontFamily: 'Noto Sans KR',
+                                fontWeight: FontWeight.w700,
+                                height: 0,
+                                letterSpacing: -0.32,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
   }
 }
 
-
-class Rectangle4076 extends StatelessWidget {
+class DeliveryListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-        child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(100),
-          ),
-          Text(
-            '이 마당발 센터가 맞나요?',
-            style: TextStyle(
-              color: Color(0xFFB4B4B4),
-              fontSize: 16,
-              fontFamily: 'Noto Sans KR',
-              fontWeight: FontWeight.w400,
-              height: 0,
-              letterSpacing: -0.32,
-            ),
-          ),
-          SizedBox(
-            width: 233,
-            child: Text(
-              '목련, 목화점',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0xFF222222),
-                fontSize: 28,
-                fontFamily: 'Noto Sans KR',
-                fontWeight: FontWeight.w700,
-                height: 0,
-                letterSpacing: -0.56,
-              ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '아닙니다',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFFA6A6A6),
-                  fontSize: 16,
-                  fontFamily: 'Noto Sans KR',
-                  fontWeight: FontWeight.w700,
-                  height: 0,
-                  letterSpacing: -0.32,
+    return DefaultTabController(
+      initialIndex: 0,
+      length: 1,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: Image.asset('/madangbal.png', width: 125, height: 125),
+        ),
+        body: const TabBarView(
+          children: <Widget>[
+            NestedTabBar('Delivery'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class NestedTabBar extends StatefulWidget {
+  const NestedTabBar(this.outerTab, {super.key});
+
+  final String outerTab;
+
+  @override
+  State<NestedTabBar> createState() => _NestedTabBarState();
+}
+
+class _NestedTabBarState extends State<NestedTabBar>
+    with TickerProviderStateMixin {
+  late final TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        TabBar.secondary(
+          controller: _tabController,
+          tabs: const <Widget>[
+            Tab(text: '배송'),
+            Tab(text: '집화'),
+          ],
+        ),
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            children: <Widget>[
+              Card(
+
+                margin: const EdgeInsets.fromLTRB(12, 25, 12, 350),
+                color: Colors.white,
+                child: Center(
+                    child: Image.asset('/camera-create.png', width: 125, height: 125,),
                 ),
               ),
-              Text(
-                '맞습니다',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFF565DFC),
-                  fontSize: 16,
-                  fontFamily: 'Noto Sans KR',
-                  fontWeight: FontWeight.w700,
-                  height: 0,
-                  letterSpacing: -0.32,
-                ),
+              Card(
+                margin: const EdgeInsets.all(16.0),
+                child: Center(
+                    child: Text('집화')),
               ),
             ],
           ),
-
-        ]
-        )
+        ),
+      ],
     );
   }
 }
