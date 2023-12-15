@@ -1,7 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/cupertino.dart';
 
 void main() {
   runApp(MyApp());
@@ -581,11 +580,16 @@ class DeliveryListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 0,
       length: 1,
       child: Scaffold(
         appBar: AppBar(
-          leading: Image.asset('/madangbal.png', width: 125, height: 125),
+          leading: Row(
+            children: [
+              Padding(padding: EdgeInsets.only(left: 21.6)),
+              Image(image: AssetImage('madangbal.png')),
+            ],
+          ),
+          leadingWidth: 200,
         ),
         body: const TabBarView(
           children: <Widget>[
@@ -636,19 +640,164 @@ class _NestedTabBarState extends State<NestedTabBar>
         Expanded(
           child: TabBarView(
             controller: _tabController,
-            children: <Widget>[
-              Card(
-
-                margin: const EdgeInsets.fromLTRB(12, 25, 12, 350),
-                color: Colors.white,
-                child: Center(
-                    child: Image.asset('/camera-create.png', width: 125, height: 125,),
-                ),
+            children: [
+              ListView(
+                padding: const EdgeInsets.all(8),
+                children: <Widget>[
+                  Container(
+                    child: Card(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 70,
+                            child: Image.asset('camera-create.png'),
+                          ),
+                          Container(
+                            child: Text(
+                              '배송 추가하기',
+                              style: TextStyle(
+                                color: Color(0xFF222224),
+                                fontSize: 16,
+                                fontFamily: 'Noto Sans KR',
+                                fontWeight: FontWeight.w700,
+                                height: 0.09,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: Container(child: Icon(Icons.chevron_right)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                      height: 128,
+                      color: Colors.white,
+                      child: Card(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                            padding:
+                                                EdgeInsets.fromLTRB(5, 8, 5, 5),
+                                            width: 54,
+                                            height: 40,
+                                            child: Card(
+                                              color: Color(0xFF565DFC),
+                                              child: Text(
+                                                '1842',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12,
+                                                  fontFamily: 'Noto Sans KR',
+                                                  fontWeight: FontWeight.w900,
+                                                  height: 0,
+                                                ),
+                                              ),
+                                            )),
+                                        Container(
+                                          child: Text(
+                                            '15:40:12 ',
+                                            style: TextStyle(
+                                              color: Color(0xFFDBDBDB),
+                                              fontSize: 10,
+                                              fontFamily: 'Noto Sans KR',
+                                              fontWeight: FontWeight.w500,
+                                              height: 0,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.fromLTRB(5, 0, 5, 10),
+                                      child: Text(
+                                        '3337-5249-1144',
+                                        style: TextStyle(
+                                          color: Color(0xFF222224),
+                                          fontSize: 20,
+                                          fontFamily: 'Noto Sans KR',
+                                          fontWeight: FontWeight.w700,
+                                          height: 0,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Container(
+                                      child: Card(
+                                        color: Color(0xFFFEE101),
+                                        child: Text(
+                                          '경비실배송',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: Color(0xFF222224),
+                                            fontSize: 10,
+                                            fontFamily: 'Noto Sans KR',
+                                            fontWeight: FontWeight.w700,
+                                            height: 0,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                    width: 76,
+                                    height: 76,
+                                    decoration: ShapeDecoration(
+                                      color: Color(0xFFEFEFEF),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
+                                    ),
+                                    child: Container(
+                                        child: Image.asset(
+                                      'imagesmode_FILL0_wght400_GRAD0_opsz24.png',
+                                      width: 45.60,
+                                      height: 45.60,
+                                      color: Colors.grey,
+                                    ))),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )),
+                  Container(
+                    height: 128,
+                    color: Colors.white,
+                    child: const Card(child: Text('Entry D')),
+                  ),
+                ],
               ),
-              Card(
-                margin: const EdgeInsets.all(16.0),
-                child: Center(
-                    child: Text('집화')),
+              ListView(
+                padding: const EdgeInsets.all(8),
+                children: <Widget>[
+                  Container(
+                    height: 50,
+                    color: Colors.white,
+                    child: const Card(child: Text('Entry A')),
+                  ),
+                ],
               ),
             ],
           ),
